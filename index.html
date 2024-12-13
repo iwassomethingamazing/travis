@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Online Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>HTML Online Viewer</h1>
+
+        <!-- Textarea for users to input their HTML -->
+        <label for="htmlInput">Enter HTML code:</label>
+        <textarea id="htmlInput" placeholder="Write your HTML code here..."></textarea>
+
+        <!-- Buttons to interact with the viewer -->
+        <div class="button-group">
+            <button onclick="updatePreview()">Preview HTML</button>
+            <button onclick="clearText()">Clear</button>
+            <button onclick="saveHTML()">Save HTML</button>
+        </div>
+
+        <!-- Live Preview Section -->
+        <div class="preview-container">
+            <h2>Live Preview:</h2>
+            <div class="preview" id="preview"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
