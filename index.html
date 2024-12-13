@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000; /* Black background */
+            height: 100vh; /* Full height */
+            overflow: hidden; /* No scrollbars */
+            cursor: none; /* Hide the cursor */
+        }
+
+        iframe {
+            border-radius: 12px;
+            border: none;
+            width: 90%;
+            max-width: 600px;
+            height: 352px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Spotify Embed -->
+    <iframe 
+        src="https://open.spotify.com/embed/track/7wBJfHzpfI3032CSD7CE2m?utm_source=generator&autoplay=1" 
+        frameborder="0" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy">
+    </iframe>
+
+    <script>
+        // Disable the right-click context menu
+        document.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+        });
+
+        // Prevent user from leaving by using beforeunload event
+        window.onbeforeunload = function() {
+            return "Are you sure you want to leave this page?";
+        };
+
+        // Prevent closing the tab (works for most browsers)
+        window.addEventListener("beforeunload", function (event) {
+            event.preventDefault();
+            event.returnValue = ''; // Chrome requires this to prevent leaving
+        });
+
+        // Auto-play on click interaction if needed
+        document.addEventListener("click", function playAudioOnce() {
+            const iframe = document.querySelector("iframe");
+            iframe.src += "&autoplay=1";
+            document.removeEventListener("click", playAudioOnce);
+        });
+
+        // Prevent tab navigation (back button)
+        history.pushState(null, "", location.href);
+        window.addEventListener("popstate", function () {
+            history.pushState(null, "", location.href);
+        });
+
+        // Prevent F5 and reload
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "F5" || event.key === "r" || event.ctrlKey) {
+                event.preventDefault();
+            }
+        });
+
+        // Fullscreen mode (optional, makes it even more immersive)
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        }
+
+        // Use Fullscreen API to hide browser chrome (URL bar etc.)
+        function goFullScreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+        }
+
+        goFullScreen(); // Automatically attempt to go full screen
+
+    </script>
+</body>
+</html>
